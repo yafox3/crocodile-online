@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import ControlBox from '../../components/ControlBox/ControlBox'
 import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
 import Input from '../../components/UI/Input/Input'
 import { WELCOME_ROUTE } from '../../utils/consts'
 import s from './Login.module.scss'
+import { observer } from 'mobx-react-lite'
+import user from '../../store/User'
 
-const Login: React.FC = () => {
+const Login: React.FC = observer(() => {
 	const [username, setUsername] = useState('');
 	const navigate = useNavigate()
 
 	const onClick = () => {
 		if (username) {
-			console.log(`${username} вы успешно вошли`)
+			user.login(username)
 			navigate(WELCOME_ROUTE)
 		}
 	}
@@ -22,7 +24,7 @@ const Login: React.FC = () => {
 		<>
 			<Logo />
 			<ControlBox>
-				<h2 className={s.title}>Как к вам обращаться?</h2>
+				<h2 className='title'>Как к вам обращаться?</h2>
 				<div className={s.form}>
 					<Input
 						placeholder='Ваше имя'
@@ -43,6 +45,6 @@ const Login: React.FC = () => {
 			</ControlBox>
 		</>
 	)
-}
+})
 
 export default Login

@@ -6,13 +6,13 @@ interface ButtonProps {
 	variant: string
 	w?: string
 	h?: string
-	onClick: () => void
+	onClick?: () => void
 }
 
 const Button: React.FC<ButtonProps> = ({variant, children, w, h, onClick}) => {
 	return (
 		<button 
-			className={variant === 'primary' ? s.btn : s.btn_secondary}
+			className={variant === 'primary' ? s.btn : `${s.btn} ${s.btn_secondary}`}
 			style={{width: w, height: h}}
 			onClick={onClick}
 		>

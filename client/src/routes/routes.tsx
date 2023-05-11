@@ -1,5 +1,5 @@
 import { IRoute } from '../models/models'
-import CreateRoom from '../pages/CreateRoom/CreateRoom'
+import ConnectToFriend from '../pages/ConnectToFriend/ConnectToFriend'
 import Login from '../pages/Login/Login'
 import Welcome from '../pages/Welcome/Welcome'
 import { CREATE_ROOM_ROUTE, LOGIN_ROUTE, WELCOME_ROUTE } from '../utils/consts'
@@ -11,7 +11,7 @@ export const privateRoutes: IRoute[] = [
 	},
 	{
 		path: CREATE_ROOM_ROUTE,
-		component: CreateRoom
+		component: ConnectToFriend
 	}
 ]
 

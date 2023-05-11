@@ -1,12 +1,12 @@
+import { observer } from 'mobx-react-lite'
 import { Route, Routes } from 'react-router-dom'
 import Login from '../pages/Login/Login'
 import Welcome from '../pages/Welcome/Welcome'
 import { privateRoutes, publicRoutes } from '../routes/routes'
+import user from '../store/User'
 
-const AppRouter: React.FC = () => {
-	const user = false
-	
-	if (user) {
+const AppRouter: React.FC = observer(() => {
+	if (user.user) {
 		return (
 			<Routes>
 				{privateRoutes.map(({path, component}) => 
@@ -25,6 +25,6 @@ const AppRouter: React.FC = () => {
 			<Route path='*' Component={Login}/>
 		</Routes>
 	)
-}
+})
 
 export default AppRouter
