@@ -1,13 +1,13 @@
+import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ControlBox from '../../components/ControlBox/ControlBox'
 import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
 import Input from '../../components/UI/Input/Input'
+import users from '../../store/Users'
 import { WELCOME_ROUTE } from '../../utils/consts'
 import s from './Login.module.scss'
-import { observer } from 'mobx-react-lite'
-import user from '../../store/User'
 
 const Login: React.FC = observer(() => {
 	const [username, setUsername] = useState('');
@@ -15,7 +15,7 @@ const Login: React.FC = observer(() => {
 
 	const onClick = () => {
 		if (username) {
-			user.login(username)
+			users.login(username)
 			navigate(WELCOME_ROUTE)
 		}
 	}

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-class User {
+class Users {
 	user: string | null = null
 
 	constructor() {
@@ -12,4 +12,4 @@ class User {
 	}
 }
 // eslint-disable-next-line
-export default new User()
+export default new Users()

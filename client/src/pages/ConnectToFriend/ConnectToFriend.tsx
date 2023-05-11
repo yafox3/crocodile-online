@@ -1,11 +1,26 @@
-import React from 'react'
-import s from './ConnectToFriend.module.scss'
-import Logo from '../../components/Logo/Logo'
+import React, { useState } from 'react'
 import ControlBox from '../../components/ControlBox/ControlBox'
-import Input from '../../components/UI/Input/Input'
+import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
+import Input from '../../components/UI/Input/Input'
+import s from './ConnectToFriend.module.scss'
+import { useNavigate } from 'react-router-dom'
+import { WELCOME_ROUTE } from '../../utils/consts'
 
 const ConnectToFriend: React.FC = () => {
+	const navigate = useNavigate()
+	const [roomId, setRoomId] = useState('');
+
+	const comebackHandler = () => {
+		navigate(WELCOME_ROUTE)
+	}
+
+	const connectHandler = () => {
+		if (roomId) {
+			console.log(roomId)
+		}
+	}
+
 	return (
 		<>
 			<Logo />
@@ -16,11 +31,15 @@ const ConnectToFriend: React.FC = () => {
 						placeholder='ID комнаты'
 						w='100%'
 						h='50px'
+						type='number'
+						value={roomId}
+						setValue={setRoomId}
 					/>
 					<Button
 						variant='primary' 
 						w='190px'
 						h='40px'
+						onClick={connectHandler}
 					>
 						Подключиться
 					</Button>
@@ -28,6 +47,7 @@ const ConnectToFriend: React.FC = () => {
 						variant='secondary' 
 						w='190px'
 						h='40px'
+						onClick={comebackHandler}
 					>
 						Назад
 					</Button>

@@ -16,7 +16,7 @@
 	transition: background-color $transition ease;
 
 	&:hover {
-		background-color: lighten($primary-btn-color, 10);
+		background-color: darken($primary-btn-color, 5);
 	}
 
 	&_secondary {
@@ -24,7 +24,7 @@
 		transition: background-color $transition ease;
 
 		&:hover {
-			background-color: lighten($secondary-btn-color, 10);
+			background-color: darken($secondary-btn-color, 5);
 		}
 	}
 }
