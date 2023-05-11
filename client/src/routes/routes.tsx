@@ -12,7 +12,7 @@ export const privateRoutes: IRoute[] = [
 	{
 		path: CREATE_ROOM_ROUTE,
 		component: CreateRoom
-	},
+	}
 ]
 
 export const publicRoutes: IRoute[] = [

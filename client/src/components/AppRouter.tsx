@@ -4,13 +4,13 @@ import Welcome from '../pages/Welcome/Welcome'
 import { privateRoutes, publicRoutes } from '../routes/routes'
 
 const AppRouter: React.FC = () => {
-	const user = true
+	const user = false
 	
 	if (user) {
 		return (
 			<Routes>
 				{privateRoutes.map(({path, component}) => 
-					<Route path={path} Component={component}/>
+					<Route path={path} Component={component} key={path}/>
 				)}
 				<Route path='*' Component={Welcome}/>
 			</Routes>
@@ -20,7 +20,7 @@ const AppRouter: React.FC = () => {
 	return (
 		<Routes>
 			{publicRoutes.map(({path, component}) => 
-				<Route path={path} Component={component}/>
+				<Route path={path} Component={component} key={path}/>
 			)}
 			<Route path='*' Component={Login}/>
 		</Routes>
