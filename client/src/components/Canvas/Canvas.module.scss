@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+.canvas {
+	position: relative;
+	width: 700px;
+	height: 600px;
+	
+	canvas {
+		background: $canvas-color;
+		border-radius: 5px;
+
+		&:hover {
+			cursor: crosshair;
+		}
+	}
+
+	&__title {
+		width: 100%;
+		position: absolute;
+		top: 10px;
+		left: 0;
+		text-align: center;
+		color: rgba(0, 46, 18, 0.5);
+		font-weight: 400;
+	}
+}

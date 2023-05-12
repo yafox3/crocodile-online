@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+
+.chat {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	
+	&__messages {
+		width: 100%;
+		flex: 1 1 auto;
+		overflow-y: scroll;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	&__input {
+		width: 100%;
+	}
+}
