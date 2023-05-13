@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import ControlBox from '../../components/ControlBox/ControlBox'
 import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
+import roomState from '../../store/roomState'
 import userState from '../../store/userState'
 import { CONNECT_TO_FRIEND_ROUTE, ROOM_ROUTE } from '../../utils/consts'
 import s from './Welcome.module.scss'
@@ -11,6 +12,9 @@ const Welcome: React.FC = () => {
 	const navigate = useNavigate()
 
 	const createRoomHandler = () => {
+		const socket = new WebSocket('ws://localhost:5000/')
+		roomState.setSocket(socket)
+		roomState.createRoom()
 		navigate(ROOM_ROUTE)
 	}
 

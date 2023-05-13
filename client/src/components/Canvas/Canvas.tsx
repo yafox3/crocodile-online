@@ -4,13 +4,14 @@ import canvasState from '../../store/canvasState'
 import toolState from '../../store/toolState'
 import Brush from '../../tools/Brush'
 import s from './Canvas.module.scss'
+import roomState from '../../store/roomState'
 
 const Canvas: React.FC = observer(() => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
 	useEffect(() => {
 		canvasState.setCanvas(canvasRef.current)
-		toolState.setTool(new Brush(canvasState.canvas))
+		toolState.setTool(new Brush(canvasState.canvas, roomState.socket, roomState.roomId))
 	}, [])
 
 	const changeColor = (event: any) => {

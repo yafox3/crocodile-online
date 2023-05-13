@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ControlBox from '../../components/ControlBox/ControlBox'
 import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
 import Input from '../../components/UI/Input/Input'
+import roomState from '../../store/roomState'
+import { ROOM_ROUTE, WELCOME_ROUTE } from '../../utils/consts'
 import s from './ConnectToFriend.module.scss'
-import { useNavigate } from 'react-router-dom'
-import { WELCOME_ROUTE } from '../../utils/consts'
 
 const ConnectToFriend: React.FC = () => {
 	const navigate = useNavigate()
@@ -17,7 +18,10 @@ const ConnectToFriend: React.FC = () => {
 
 	const connectHandler = () => {
 		if (roomId) {
-			console.log(roomId)
+			const socket = new WebSocket('ws://localhost:5000/')
+			roomState.setSocket(socket)
+			roomState.connectToRoom(roomId)
+			navigate(ROOM_ROUTE)
 		}
 	}
 
