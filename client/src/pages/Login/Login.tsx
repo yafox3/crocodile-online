@@ -5,7 +5,7 @@ import ControlBox from '../../components/ControlBox/ControlBox'
 import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
 import Input from '../../components/UI/Input/Input'
-import users from '../../store/Users'
+import userState from '../../store/userState'
 import { WELCOME_ROUTE } from '../../utils/consts'
 import s from './Login.module.scss'
 
@@ -15,7 +15,7 @@ const Login: React.FC = observer(() => {
 
 	const onClick = () => {
 		if (username) {
-			users.login(username)
+			userState.login(username)
 			navigate(WELCOME_ROUTE)
 		}
 	}

@@ -23,4 +23,10 @@
 		color: rgba(0, 46, 18, 0.5);
 		font-weight: 400;
 	}
+
+	&__color {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+	}
 }

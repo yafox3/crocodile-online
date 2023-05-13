@@ -3,10 +3,10 @@ import { Route, Routes } from 'react-router-dom'
 import Login from '../pages/Login/Login'
 import Welcome from '../pages/Welcome/Welcome'
 import { privateRoutes, publicRoutes } from '../routes/routes'
-import users from '../store/Users'
+import userState from '../store/userState'
 
 const AppRouter: React.FC = observer(() => {
-	if (users.user) {
+	if (userState.user) {
 		return (
 			<Routes>
 				{privateRoutes.map(({path, component}) => 

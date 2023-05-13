@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import ControlBox from '../../components/ControlBox/ControlBox'
 import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
-import users from '../../store/Users'
+import userState from '../../store/userState'
 import { CONNECT_TO_FRIEND_ROUTE, ROOM_ROUTE } from '../../utils/consts'
 import s from './Welcome.module.scss'
 
@@ -22,7 +22,7 @@ const Welcome: React.FC = () => {
 		<>
 			<Logo />
 			<ControlBox>
-				<h2 className='title'>Привет, {users.user}!</h2>
+				<h2 className='title'>Привет, {userState.user}!</h2>
 				<div className={s.controls}>
 					<Button 
 						variant='primary'
