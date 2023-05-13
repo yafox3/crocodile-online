@@ -1,0 +1,20 @@
+@import '../../../styles/variables';
+
+.message {
+	max-width: 440px;
+	background: $canvas-color;
+	padding: 10px;
+	border-radius: 5px;
+
+	&__author {
+		font-size: 16px;
+		margin-bottom: 7px;
+		color: darken($control-box-color, 30);
+	}
+
+	&__text {
+		font-size: 15px;
+		color: lighten(#000000, 25);
+		word-wrap: break-word;
+	}
+}

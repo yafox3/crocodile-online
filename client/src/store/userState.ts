@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 
 class UserState {
-	user: string | null = null
+	user: string = ''
 
 	constructor() {
 		makeAutoObservable(this)
