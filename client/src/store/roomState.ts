@@ -14,6 +14,13 @@ class RoomState {
 		this.socket = socket
 	}
 
+	sendMessage(message: IMessage) {
+		this.socket?.send(JSON.stringify({
+			...message,
+			method: 'sendMessage'
+		}))
+	}
+
 	setMessage(message: IMessage) {
 		this.messages.push(message)
 	}

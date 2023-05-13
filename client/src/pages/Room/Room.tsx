@@ -8,6 +8,7 @@ import userState from '../../store/userState'
 import { drawHandler } from '../../utils/drawHandler'
 import s from './Room.module.scss'
 import { observer } from 'mobx-react-lite'
+import { messageHandler } from '../../utils/messageHandler'
 
 const Room = observer(() => {
 	useEffect(() => {
@@ -29,6 +30,9 @@ const Room = observer(() => {
 					break
 				case 'draw': 
 					drawHandler(msg)
+					break
+				case 'sendMessage':
+					messageHandler(msg)
 					break
 			}
 		}

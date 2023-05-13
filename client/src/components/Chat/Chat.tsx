@@ -14,12 +14,12 @@ const Chat: React.FC = () => {
 		
 		if (message) {
 			const newMessage: IMessage = {
-				id: Date.now().toLocaleString(),
+				id: roomState.roomId,
 				author: userState.user,
-				text: message
+				text: message,
 			}
-	
-			roomState.setMessage(newMessage)
+			
+			roomState.sendMessage(newMessage)
 			setMessage('')
 		}
 	}
