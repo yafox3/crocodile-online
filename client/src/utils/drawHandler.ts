@@ -7,7 +7,7 @@ export const drawHandler = (msg: any) => {
 
 	switch(figure.type) {
 		case 'brush':
-			Brush.draw(figure.x, figure.y, ctx)
+			Brush.draw(figure.x, figure.y, ctx, figure.color)
 			break
 		case 'finish':
 			ctx?.beginPath()
