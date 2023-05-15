@@ -1,16 +1,17 @@
+import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
 import Canvas from '../../components/Canvas/Canvas'
 import Chat from '../../components/Chat/Chat'
 import ControlBox from '../../components/ControlBox/ControlBox'
+import InviteFriend from '../../components/InviteFriend/InviteFriend'
 import Button from '../../components/UI/Button/Button'
+import { drawHandler } from '../../handlers/drawHandler'
+import { messageHandler } from '../../handlers/messageHandler'
+import { startGameHandler } from '../../handlers/startGameHandler'
 import roomState from '../../store/roomState'
 import userState from '../../store/userState'
-import { drawHandler } from '../../utils/drawHandler'
-import s from './Room.module.scss'
-import { observer } from 'mobx-react-lite'
-import { messageHandler } from '../../utils/messageHandler'
 import { WS_URL } from '../../utils/consts'
-import InviteFriend from '../../components/InviteFriend/InviteFriend'
+import s from './Room.module.scss'
 
 const Room = observer(() => {
 	const [invite, setInvite] = useState(false)
@@ -26,25 +27,45 @@ const Room = observer(() => {
 			}))
 		}
 		socket.onmessage = (event) => {
-			let msg = JSON.parse(event.data)
+			const msg = JSON.parse(event.data)
 
 			switch(msg.method) {
 				case 'connection':
-					console.log(`Пользователь ${userState.user} подключился к комнате ${roomState.roomId}`)
+					console.log(`Пользователь ${msg.user} подключился к комнате ${msg.id}`)
 					break
-				case 'draw': 
+				case 'draw':
+					drawHandler(msg)
+					break
+				case 'clear': 
 					drawHandler(msg)
 					break
 				case 'sendMessage':
 					messageHandler(msg)
 					break
+				case 'startGame':
+					startGameHandler(msg)
+					break
 			}
 		}
 	}, [])
 
+	const isOwner = () => {
+		return roomState.owner === userState.user
+	}
+
 	return (
 		<div className={s.room}>
-			<div className={s.room__btn}>
+			<div className={s.room__btns}>
+				{ isOwner() && !roomState.currentWord &&
+					<Button 
+						variant='primary' 
+						w='200px' 
+						h='40px'
+						onClick={() => roomState.startGame()}
+					>
+						Начать игру
+					</Button>
+				}
 				<Button 
 					variant='secondary'
 					w='200px'

@@ -1,10 +1,16 @@
 import { makeAutoObservable } from 'mobx'
+import { words } from '../data/words'
 import { IMessage } from '../models/models'
+import canvasState from './canvasState'
+import userState from './userState'
 
 class RoomState {
 	roomId: string = ''
+	owner: string = ''
+	drawer: string = ''
 	socket: WebSocket | null = null
 	messages: IMessage[] = []
+	currentWord: string = ''
 
 	constructor() {
 		makeAutoObservable(this)
@@ -19,18 +25,61 @@ class RoomState {
 			...message,
 			method: 'sendMessage'
 		}))
+		
+		if (message.text.toLowerCase() === this.currentWord.toLowerCase()) {
+			this.restartGame(message.author)
+		}
 	}
 
 	setMessage(message: IMessage) {
 		this.messages.push(message)
 	}
-
+	
 	createRoom() {
+		this.owner = userState.user
 		this.roomId = Date.now().toString().replace(' ', '')
 	}
 
 	connectToRoom(id: string) {
 		this.roomId = id
+	}
+
+	setWord(word?: string) {
+		if (word) {
+			this.currentWord = word
+		} else {
+			this.currentWord = words[Math.floor(Math.random() * words.length)]
+		}
+	}
+
+	setDrawer(user: string) {
+		this.drawer = user
+	}
+
+	startGame() {
+		canvasState.clearCanvar()
+		this.setWord()
+		this.setDrawer(this.owner)
+
+		this.socket?.send(JSON.stringify({
+			method: 'startGame',
+			id: this.roomId,
+			word: this.currentWord,
+			drawer: this.drawer,
+		}))
+	}
+	
+	restartGame(winner: string) {
+		canvasState.clearCanvar()
+		this.setWord()
+		this.setDrawer(winner)
+
+		this.socket?.send(JSON.stringify({
+			method: 'startGame',
+			id: this.roomId,
+			word: this.currentWord,
+			drawer: this.drawer,
+		}))
 	}
 }
 // eslint-disable-next-line

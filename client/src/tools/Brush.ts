@@ -1,3 +1,5 @@
+import roomState from '../store/roomState'
+import userState from '../store/userState'
 import Tool from './Tool'
 
 export default class Brush extends Tool {
@@ -32,7 +34,7 @@ export default class Brush extends Tool {
 	}
 
 	mouseMoveHandler(event: MouseEvent) {
-		if (this.mouseDown) {
+		if (this.mouseDown && userState.user === roomState.drawer) {
 			this.socket?.send(JSON.stringify({
 				method: 'draw', 
 				id: this.id,
@@ -50,5 +52,9 @@ export default class Brush extends Tool {
 		ctx.lineTo(x, y) 
 		ctx.strokeStyle = color
 		ctx.stroke()
+	}
+
+	static clear (ctx: any, w: number, h: number) {
+		ctx.clearRect(0, 0, w, h)
 	}
 }

@@ -35,6 +35,7 @@ const Chat: React.FC = () => {
 					placeholder='Введите слово'
 					value={message}
 					setValue={setMessage}
+					disabled={userState.user === roomState.drawer}
 				/>
 			</form>
 		</div>
