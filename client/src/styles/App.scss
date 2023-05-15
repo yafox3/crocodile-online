@@ -11,6 +11,11 @@ html, body {
 	min-width: 100vw;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+}
+
 .wrapper {
 	display: flex;
 	flex-direction: column;

@@ -4,13 +4,14 @@ import s from './Input.module.scss'
 interface InputProps {
 	type?: string
 	placeholder?: string
+	disabled?: boolean
 	w?: string
 	h?: string
 	value?: string
 	setValue?: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Input: React.FC<InputProps> = ({placeholder, w, h, value, type, setValue = () => {}}) => {
+const Input: React.FC<InputProps> = ({placeholder, w, h, value, type, disabled, setValue = () => {}}) => {
 	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value)
 	}
@@ -23,6 +24,7 @@ const Input: React.FC<InputProps> = ({placeholder, w, h, value, type, setValue =
 			style={{width: w, height: h}}
 			placeholder={placeholder}
 			className={s.input}
+			disabled={disabled}
 		/>
 	)	
 }

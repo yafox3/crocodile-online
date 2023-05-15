@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Canvas from '../../components/Canvas/Canvas'
 import Chat from '../../components/Chat/Chat'
 import ControlBox from '../../components/ControlBox/ControlBox'
@@ -10,8 +10,11 @@ import s from './Room.module.scss'
 import { observer } from 'mobx-react-lite'
 import { messageHandler } from '../../utils/messageHandler'
 import { WS_URL } from '../../utils/consts'
+import InviteFriend from '../../components/InviteFriend/InviteFriend'
 
 const Room = observer(() => {
+	const [invite, setInvite] = useState(false)
+
 	useEffect(() => {
 		const socket = roomState.socket || new WebSocket(WS_URL)
 		roomState.setSocket(socket)
@@ -46,10 +49,16 @@ const Room = observer(() => {
 					variant='secondary'
 					w='200px'
 					h='40px'
+					onClick={() => setInvite(true)}
 				>
 					Пригласить друга
 				</Button>
 			</div>
+
+			<InviteFriend 
+				show={invite}
+				onHide={() => setInvite(false)}
+			/>
 
 			<ControlBox w='1200px'>
 				<div className={s.room__controlBox}>
