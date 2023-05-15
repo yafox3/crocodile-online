@@ -6,6 +6,8 @@ const PORT = process.env.PORT || 5000
 
 app.use(express.json())
 
+const users = []
+
 app.ws('/', (ws, req) => {
 	ws.on('message', msg => {
 		msg = JSON.parse(msg)
@@ -19,6 +21,12 @@ app.ws('/', (ws, req) => {
 			case 'sendMessage':
 				broadcastConnection(ws, msg)
 				break
+			case 'startGame': 
+				broadcastConnection(ws, msg)
+				break
+			case 'clear':
+				broadcastConnection(ws, msg)
+				break
 		}
 	})
 })
@@ -27,6 +35,11 @@ app.listen(PORT, () => console.log('working...'))
 
 const connectionHandler = (ws, msg) => {
 	ws.id = msg.id
+	users.push({
+		username: msg.user.username,
+		isOwner: msg.user.isOwner,
+		isDraw: msg.user.isDraw
+	})
 	broadcastConnection(ws, msg)
 }
 
