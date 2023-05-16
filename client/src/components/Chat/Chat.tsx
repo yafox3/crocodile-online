@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 import { IMessage } from '../../models/models'
 import roomState from '../../store/roomState'
@@ -6,7 +7,7 @@ import Input from '../UI/Input/Input'
 import s from './Chat.module.scss'
 import MessageList from './MessageList/MessageList'
 
-const Chat: React.FC = () => {
+const Chat: React.FC = observer(() => {
 	const [message, setMessage] = useState('');
 
 	const sendMessage = (event: React.FormEvent) => {
@@ -40,6 +41,6 @@ const Chat: React.FC = () => {
 			</form>
 		</div>
 	)
-}
+})
 
 export default Chat
