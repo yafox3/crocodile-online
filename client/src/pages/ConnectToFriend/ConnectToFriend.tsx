@@ -5,7 +5,7 @@ import Logo from '../../components/Logo/Logo'
 import Button from '../../components/UI/Button/Button'
 import Input from '../../components/UI/Input/Input'
 import roomState from '../../store/roomState'
-import { ROOM_ROUTE, WELCOME_ROUTE } from '../../utils/consts'
+import { ROOM_ROUTE, WELCOME_ROUTE, WS_URL } from '../../utils/consts'
 import s from './ConnectToFriend.module.scss'
 
 const ConnectToFriend: React.FC = () => {
@@ -18,7 +18,7 @@ const ConnectToFriend: React.FC = () => {
 
 	const connectHandler = () => {
 		if (roomId) {
-			const socket = new WebSocket('ws://localhost:5000/')
+			const socket = new WebSocket(WS_URL)
 			roomState.setSocket(socket)
 			roomState.connectToRoom(roomId)
 			navigate(ROOM_ROUTE)
