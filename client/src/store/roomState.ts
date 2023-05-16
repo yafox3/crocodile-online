@@ -45,11 +45,7 @@ class RoomState {
 	}
 
 	setWord(word?: string) {
-		if (word) {
-			this.currentWord = word
-		} else {
-			this.currentWord = words[Math.floor(Math.random() * words.length)]
-		}
+		this.currentWord = word || words[Math.floor(Math.random() * words.length)]
 	}
 
 	setDrawer(user: string) {
@@ -57,7 +53,7 @@ class RoomState {
 	}
 
 	startGame() {
-		canvasState.clearCanvar()
+		canvasState.clearCanvas()
 		this.setWord()
 		this.setDrawer(this.owner)
 
@@ -70,7 +66,7 @@ class RoomState {
 	}
 	
 	restartGame(winner: string) {
-		canvasState.clearCanvar()
+		canvasState.clearCanvas()
 		this.setWord()
 		this.setDrawer(winner)
 

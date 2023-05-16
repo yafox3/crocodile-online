@@ -12,7 +12,7 @@ export class CanvasState {
 		this.canvas = canvas
 	}
 
-	clearCanvar() {
+	clearCanvas() {
 		roomState.socket?.send(JSON.stringify({
 			method: 'clear', 
 			id: roomState.roomId,
