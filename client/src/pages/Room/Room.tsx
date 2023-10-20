@@ -5,6 +5,7 @@ import Chat from '../../components/Chat/Chat'
 import ControlBox from '../../components/ControlBox/ControlBox'
 import InviteFriend from '../../components/InviteFriend/InviteFriend'
 import Button from '../../components/UI/Button/Button'
+import Loader from '../../components/UI/Loader/Loader'
 import { drawHandler } from '../../handlers/drawHandler'
 import { messageHandler } from '../../handlers/messageHandler'
 import { startGameHandler } from '../../handlers/startGameHandler'
@@ -15,28 +16,31 @@ import s from './Room.module.scss'
 
 const Room = observer(() => {
 	const [invite, setInvite] = useState(false)
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		const socket = roomState.socket || new WebSocket(WS_URL)
 		roomState.setSocket(socket)
 		socket.onopen = () => {
-			socket.send(JSON.stringify({
-				id: roomState.roomId,
-				user: userState.user,
-				method: 'connection'
-			}))
+			socket.send(
+				JSON.stringify({
+					id: roomState.roomId,
+					user: userState.user,
+					method: 'connection'
+				})
+			)
 		}
-		socket.onmessage = (event) => {
+		socket.onmessage = event => {
 			const msg = JSON.parse(event.data)
 
-			switch(msg.method) {
+			switch (msg.method) {
 				case 'connection':
-					console.log(`Пользователь ${msg.user} подключился к комнате ${msg.id}`)
+					setLoading(false)
 					break
 				case 'draw':
 					drawHandler(msg)
 					break
-				case 'clear': 
+				case 'clear':
 					drawHandler(msg)
 					break
 				case 'sendMessage':
@@ -56,30 +60,21 @@ const Room = observer(() => {
 	return (
 		<div className={s.room}>
 			<div className={s.room__btns}>
-				{ isOwner() && !roomState.currentWord &&
-					<Button 
-						variant='primary' 
-						w='200px' 
+				{isOwner() && !roomState.currentWord && (
+					<Button
+						variant='primary'
+						w='200px'
 						h='40px'
-						onClick={() => roomState.startGame()}
-					>
+						onClick={() => roomState.startGame()}>
 						Начать игру
 					</Button>
-				}
-				<Button 
-					variant='secondary'
-					w='200px'
-					h='40px'
-					onClick={() => setInvite(true)}
-				>
+				)}
+				<Button variant='secondary' w='200px' h='40px' onClick={() => setInvite(true)}>
 					Пригласить друга
 				</Button>
 			</div>
 
-			<InviteFriend 
-				show={invite}
-				onHide={() => setInvite(false)}
-			/>
+			<InviteFriend show={invite} onHide={() => setInvite(false)} />
 
 			<ControlBox w='1200px'>
 				<div className={s.room__controlBox}>
@@ -87,6 +82,7 @@ const Room = observer(() => {
 					<Chat />
 				</div>
 			</ControlBox>
+			{loading && <Loader />}
 		</div>
 	)
 })

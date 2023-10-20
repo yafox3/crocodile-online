@@ -10,5 +10,4 @@ interface StartGameResponse {
 export const startGameHandler = (msg: StartGameResponse) => {
 	roomState.setDrawer(msg.drawer)
 	roomState.setWord(msg.word)
-	console.log(msg.drawer)
 }
