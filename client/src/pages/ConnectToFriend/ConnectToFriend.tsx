@@ -16,7 +16,8 @@ const ConnectToFriend: React.FC = () => {
 		navigate(WELCOME_ROUTE)
 	}
 
-	const connectHandler = () => {
+	const connectHandler = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
 		if (roomId) {
 			const socket = new WebSocket(WS_URL)
 			roomState.setSocket(socket)
@@ -30,7 +31,7 @@ const ConnectToFriend: React.FC = () => {
 			<Logo />
 			<ControlBox>
 				<h2 className='title'>Введите ID комнаты</h2>
-				<div className={s.form}>
+				<form className={s.form} onSubmit={connectHandler}>
 					<Input
 						placeholder='ID комнаты'
 						w='100%'
@@ -43,7 +44,6 @@ const ConnectToFriend: React.FC = () => {
 						variant='primary' 
 						w='190px'
 						h='40px'
-						onClick={connectHandler}
 					>
 						Подключиться
 					</Button>
@@ -55,7 +55,7 @@ const ConnectToFriend: React.FC = () => {
 					>
 						Назад
 					</Button>
-				</div>
+				</form>
 			</ControlBox>
 		</>
 	)

@@ -13,7 +13,8 @@ const Login: React.FC = observer(() => {
 	const [username, setUsername] = useState('');
 	const navigate = useNavigate()
 
-	const onClick = () => {
+	const loginHandler = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault()
 		if (username) {
 			userState.login(username)
 			navigate(WELCOME_ROUTE)
@@ -25,7 +26,7 @@ const Login: React.FC = observer(() => {
 			<Logo />
 			<ControlBox>
 				<h2 className='title'>Как к вам обращаться?</h2>
-				<div className={s.form}>
+				<form className={s.form} onSubmit={loginHandler}>
 					<Input
 						placeholder='Ваше имя'
 						w='100%'
@@ -37,11 +38,10 @@ const Login: React.FC = observer(() => {
 						variant='primary' 
 						w='170px'
 						h='40px'
-						onClick={onClick}
 					>
 						Вход
 					</Button>
-				</div>
+				</form>
 			</ControlBox>
 		</>
 	)
